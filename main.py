@@ -1,7 +1,37 @@
 def redact(original_string):
     new_string = ""
+    lowercase = "abcdefghijklmnopqrstuvwxyz"
+    alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     for word in original_string.split(" "):
-        # YOUR CODE HERE
+        if word[-1] in alphabet:
+            if word[0] in lowercase:
+                if last_word_redacted == True:
+                    new_string = new_string + "[Redacted] " + word + " "
+                    last_word_redacted = False
+                elif last_word_redacted == False:
+                    new_string = new_string + word + " "
+                    last_word_redacted = False
+            else:
+                last_word_redacted = True
+                new_string = new_string
+        else:
+            i = 1
+            for n in word:
+                if word[-i] in alphabet:
+                     break
+                else:
+                    i = i + 1
+            the_rest = word[(-i + 1):]
+            if word[0] in lowercase:
+                if last_word_redacted == True:
+                    new_string = new_string + "[Redacted] " + word + " "
+                    last_word_redacted = False
+                elif last_word_redacted == False:
+                    new_string = new_string + word + " "
+                    last_word_redacted = False
+            else:
+                last_word_redacted = False
+                new_string = new_string + "[Redacted]" + the_rest + " "
     return new_string
 
 eb_bio = "Erin came to Kehillah after getting her PhD in Cognitive Science \
